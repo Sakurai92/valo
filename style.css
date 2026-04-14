@@ -1,0 +1,329 @@
+/* ===================================================
+   VALORANT エージェント当てゲーム — スタイルシート
+   =================================================== */
+
+:root {
+  --bg:          #0f1923;
+  --bg-header:   #0d1520;
+  --bg-nav:      #111c27;
+  --bg-card:     #1a2634;
+  --bg-card-hover: #243040;
+  --accent:      #ff4655;
+  --accent-dim:  #c73040;
+  --text:        #ece8e1;
+  --text-muted:  #7a8a99;
+  --border:      #ffffff10;
+  --elim-tint:   rgba(255, 70, 85, 0.18);
+  --radius:      10px;
+  --transition:  0.18s ease;
+}
+
+/* ---------- リセット ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* ---------- ヘッダー ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.title-valo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.title-sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.counter {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+#count-num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.btn-reset {
+  padding: 7px 16px;
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.btn-reset:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-reset:active {
+  background: var(--accent-dim);
+  border-color: var(--accent-dim);
+  color: #fff;
+}
+
+/* ---------- ロールフィルター ---------- */
+.role-filter {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.role-filter::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid #ffffff18;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: #ffffff40;
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ---------- グリッド ---------- */
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px;
+  padding: 14px;
+}
+
+/* ---------- エージェントカード ---------- */
+.agent-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--transition), opacity var(--transition);
+  border: 1.5px solid transparent;
+}
+
+.agent-card:hover {
+  transform: scale(1.05);
+  background: var(--bg-card-hover);
+  border-color: #ffffff15;
+}
+
+.agent-card:active {
+  transform: scale(0.94);
+}
+
+/* 画像ラッパー — 正方形維持 */
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #141e29;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  draggable: false;
+  transition: filter var(--transition), opacity var(--transition);
+}
+
+/* 消去時のオーバーレイ */
+.elim-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--elim-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.elim-overlay span {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(255, 70, 85, 0.9), 0 0 4px #000;
+  line-height: 1;
+}
+
+/* 消去済みカード */
+.agent-card.eliminated {
+  opacity: 0.28;
+  transform: none !important;
+}
+
+.agent-card.eliminated .card-img-wrap img {
+  filter: grayscale(100%);
+}
+
+.agent-card.eliminated .elim-overlay {
+  opacity: 1;
+}
+
+.agent-card.eliminated .card-name {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+/* エージェント名 */
+.card-name {
+  padding: 5px 4px 6px;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+  transition: color var(--transition);
+}
+
+/* ---------- ローディング ---------- */
+.loading {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #ffffff18;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- エラー ---------- */
+.error {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.error button {
+  margin-top: 8px;
+  padding: 8px 24px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 480px) {
+  .header { padding: 10px 14px; }
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+  .card-name { font-size: 0.62rem; }
+  .elim-overlay span { font-size: 1.6rem; }
+}
+
+@media (min-width: 768px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    padding: 18px;
+  }
+  .card-name { font-size: 0.72rem; }
+}
+
+@media (min-width: 1200px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}
