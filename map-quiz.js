@@ -14,10 +14,11 @@ const SKIP_URLS = ['Range', 'HURM', 'Tutorial', 'Poveglia', 'Skirmish', 'NPEV2']
 /** @type {{ name: string, image: string }[]} */
 let allMaps = [];
 
-let questions     = [];
-let currentIdx    = 0;
-let score         = 0;
+let questions      = [];
+let currentIdx     = 0;
+let score          = 0;
 let selectedChoice = null;
+let cropOx = 50, cropOy = 50; // 直前の出題クロップ位置
 
 // ============================================================
 // データ取得
@@ -96,13 +97,41 @@ function showScreen(id) {
 // ランダムクロップ
 // ============================================================
 
+const CROP_SCALE = 5;
+
 function applyRandomCrop(imgEl) {
-  const scale = 5;
-  const ox = Math.random() * 100;
-  const oy = Math.random() * 100;
-  imgEl.style.transformOrigin = `${ox}% ${oy}%`;
-  imgEl.style.transform = `scale(${scale})`;
+  cropOx = Math.random() * 100;
+  cropOy = Math.random() * 100;
+  imgEl.style.transition = '';
+  imgEl.style.transformOrigin = `${cropOx}% ${cropOy}%`;
+  imgEl.style.transform = `scale(${CROP_SCALE})`;
   imgEl.style.opacity = '1';
+}
+
+function showCropArea() {
+  const img  = document.getElementById('map-image');
+  const wrap = img.parentElement;
+
+  // ズームアウトアニメーション
+  img.style.transition = 'transform 0.45s ease';
+  img.style.transform  = 'scale(1)';
+
+  const W = wrap.clientWidth;
+  const H = wrap.clientHeight;
+  const visW    = W / CROP_SCALE;
+  const visH    = H / CROP_SCALE;
+  const visLeft = cropOx / 100 * W * (CROP_SCALE - 1) / CROP_SCALE;
+  const visTop  = cropOy / 100 * H * (CROP_SCALE - 1) / CROP_SCALE;
+
+  setTimeout(() => {
+    const marker = document.getElementById('crop-marker');
+    marker.style.left   = `${visLeft.toFixed(1)}px`;
+    marker.style.top    = `${visTop.toFixed(1)}px`;
+    marker.style.width  = `${visW.toFixed(1)}px`;
+    marker.style.height = `${visH.toFixed(1)}px`;
+    marker.classList.add('visible');
+    img.style.transition = '';
+  }, 450);
 }
 
 // ============================================================
@@ -141,6 +170,7 @@ function showQuestion() {
   btnAnswer.classList.remove('hidden');
   document.getElementById('btn-next').classList.remove('visible');
   document.getElementById('feedback').className = 'feedback';
+  document.getElementById('crop-marker').classList.remove('visible');
 }
 
 // ============================================================
@@ -182,6 +212,7 @@ function onAnswer(selected, correct) {
   }
 
   document.getElementById('btn-answer').classList.add('hidden');
+  showCropArea();
 
   const btnNext = document.getElementById('btn-next');
   btnNext.textContent =
