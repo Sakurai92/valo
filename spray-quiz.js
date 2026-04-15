@@ -25,7 +25,7 @@ async function loadSprays() {
   const json = await res.json();
 
   return json.data
-    .filter(s => s.animationGif || s.fullIcon || s.displayIcon)
+    .filter(s => s.displayName !== 'なし' && (s.animationGif || s.fullIcon || s.displayIcon))
     .map(s => ({
       name:  s.displayName,
       image: s.animationGif ?? s.fullIcon ?? s.displayIcon,
