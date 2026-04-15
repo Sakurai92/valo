@@ -99,9 +99,17 @@ function showScreen(id) {
 
 const CROP_SCALE = 5;
 
+// 中央寄りの正規分布でランダム値を生成（0〜100%、std=22で95%が6〜94%に収まる）
+function randCropPos() {
+  const u = 1 - Math.random();
+  const v = Math.random();
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  return Math.max(0, Math.min(100, 50 + z * 22));
+}
+
 function applyRandomCrop(imgEl) {
-  cropOx = Math.random() * 100;
-  cropOy = Math.random() * 100;
+  cropOx = randCropPos();
+  cropOy = randCropPos();
   imgEl.style.transition = '';
   imgEl.style.transformOrigin = `${cropOx}% ${cropOy}%`;
   imgEl.style.transform = `scale(${CROP_SCALE})`;
