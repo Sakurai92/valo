@@ -1,18 +1,8 @@
-/**
- * VALORANT エージェント当てゲーム
- *
- * valorant-api.com から全エージェントを取得し、
- * タップ/クリックで消去しながら絞り込むゲームボードを提供する。
- */
-
 const API_URL =
   'https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=ja-JP';
 
-// ロールの表示順（英語キー）
 const ROLE_ORDER = ['Duelist', 'Sentinel', 'Controller', 'Initiator'];
 
-// APIのロール名 → 英語キーへの正規化マップ
-// language=ja-JP 時は日本語で返ってくるため両方対応する
 const ROLE_TO_EN = {
   'Duelist':      'Duelist',
   'Controller':   'Controller',
@@ -24,18 +14,9 @@ const ROLE_TO_EN = {
   'イニシエーター':'Initiator',
 };
 
-/** @type {{ uuid: string, displayName: string, displayIcon: string, role: string }[]} */
 let agents = [];
-
-/** 消去済みエージェントの UUID セット */
 const eliminated = new Set();
-
-/** 現在選択中のロールフィルター */
 let currentFilter = 'all';
-
-// ============================================================
-// データ取得
-// ============================================================
 
 async function loadAgents() {
   const res = await fetch(API_URL);
@@ -43,9 +24,8 @@ async function loadAgents() {
   const json = await res.json();
 
   return json.data
-    .filter(a => a.role) // ロール未設定のエージェント（存在しないはずだが念のため）を除外
+    .filter(a => a.role)
     .sort((a, b) => {
-      // ロール順 → 日本語名順でソート（正規化後の英語キーで比較）
       const ra = ROLE_ORDER.indexOf(ROLE_TO_EN[a.role.displayName] ?? a.role.displayName);
       const rb = ROLE_ORDER.indexOf(ROLE_TO_EN[b.role.displayName] ?? b.role.displayName);
       if (ra !== rb) return ra - rb;
@@ -55,14 +35,9 @@ async function loadAgents() {
       uuid:        a.uuid,
       displayName: a.displayName,
       displayIcon: a.displayIcon,
-      // APIの言語設定に関わらず常に英語キーで保持し、フィルターと一致させる
       role:        ROLE_TO_EN[a.role.displayName] ?? a.role.displayName,
     }));
 }
-
-// ============================================================
-// レンダリング
-// ============================================================
 
 function getFiltered() {
   if (currentFilter === 'all') return agents;
@@ -101,10 +76,6 @@ function renderGrid() {
   updateCounter();
 }
 
-// ============================================================
-// カード操作
-// ============================================================
-
 function toggleCard(uuid) {
   if (eliminated.has(uuid)) {
     eliminated.delete(uuid);
@@ -118,10 +89,6 @@ function toggleCard(uuid) {
   updateCounter();
 }
 
-// ============================================================
-// カウンター
-// ============================================================
-
 function updateCounter() {
   const filtered = getFiltered();
   const total     = filtered.length;
@@ -130,10 +97,6 @@ function updateCounter() {
   document.getElementById('count-num').textContent   = remaining;
   document.getElementById('count-total').textContent = total;
 }
-
-// ============================================================
-// エラー表示
-// ============================================================
 
 function showError() {
   document.getElementById('grid').innerHTML = `
@@ -145,12 +108,7 @@ function showError() {
   `;
 }
 
-// ============================================================
-// 初期化
-// ============================================================
-
 async function init() {
-  // ローディング表示
   document.getElementById('grid').innerHTML = `
     <div class="loading" id="loading">
       <div class="spinner"></div>
@@ -167,11 +125,6 @@ async function init() {
   }
 }
 
-// ============================================================
-// イベントリスナー
-// ============================================================
-
-// ロールフィルター
 document.getElementById('role-filter').addEventListener('click', e => {
   const btn = e.target.closest('.filter-btn');
   if (!btn) return;
@@ -182,7 +135,6 @@ document.getElementById('role-filter').addEventListener('click', e => {
   renderGrid();
 });
 
-// リセットボタン（グリッドを再描画せずクラスを外すだけにして暗転を防ぐ）
 document.getElementById('reset-btn').addEventListener('click', () => {
   eliminated.clear();
   document.querySelectorAll('.agent-card.eliminated').forEach(card => {
@@ -191,5 +143,4 @@ document.getElementById('reset-btn').addEventListener('click', () => {
   updateCounter();
 });
 
-// 起動
 init();

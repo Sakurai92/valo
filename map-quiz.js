@@ -1,28 +1,15 @@
-/**
- * VALORANT マップ当てクイズ
- *
- * valorant-api.com から全マップを取得し、
- * ミニマップ画像を見てマップ名を4択で当てるクイズゲーム。
- */
-
 const API_URL = 'https://valorant-api.com/v1/maps?language=ja-JP';
 const TOTAL_QUESTIONS = 10;
 
-// 競技マップ以外をスキップ（mapUrl に含まれるキーワード）
 const SKIP_URLS = ['Range', 'HURM', 'Tutorial', 'Poveglia', 'Skirmish', 'NPEV2'];
 
-/** @type {{ name: string, image: string }[]} */
 let allMaps = [];
 
 let questions      = [];
 let currentIdx     = 0;
 let score          = 0;
 let selectedChoice = null;
-let cropOx = 50, cropOy = 50; // 直前の出題クロップ位置
-
-// ============================================================
-// データ取得
-// ============================================================
+let cropOx = 50, cropOy = 50;
 
 async function loadMaps() {
   const controller = new AbortController();
@@ -52,10 +39,6 @@ async function loadMaps() {
     }));
 }
 
-// ============================================================
-// クイズ生成
-// ============================================================
-
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -84,32 +67,21 @@ function buildQuestions() {
   return picked.map(map => createQuestion(map));
 }
 
-// ============================================================
-// 画面切り替え
-// ============================================================
-
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// ============================================================
-// ランダムクロップ
-// ============================================================
-
 const CROP_SCALE = 5;
 
-// 全域ランダム
 function randCropWide() { return Math.random() * 100; }
 
-// 中央寄り（CORSが使えない場合のフォールバック）
 function randCropTight() {
   const u = 1 - Math.random(), v = Math.random();
   const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   return Math.max(30, Math.min(70, 50 + z * 12));
 }
 
-// 指定位置のクロップエリアの平均輝度を取得（CORSエラー時は -1 を返す）
 function getSampleBrightness(imgEl, ox, oy) {
   const W = imgEl.offsetWidth || 480;
   const H = imgEl.offsetHeight || 260;
@@ -137,19 +109,19 @@ function getSampleBrightness(imgEl, ox, oy) {
     const data = ctx.getImageData(0, 0, S, S).data;
     let sum = 0, cnt = 0;
     for (let i = 0; i < data.length; i += 4) {
-      if (data[i + 3] < 10) continue; // 透明ピクセルはスキップ
+      if (data[i + 3] < 10) continue;
       sum += (data[i] + data[i + 1] + data[i + 2]) / 3;
       cnt++;
     }
     return cnt > 0 ? sum / cnt : 0;
   } catch (e) {
-    return -1; // CORS制限
+    return -1;
   }
 }
 
 function applyRandomCrop(imgEl) {
-  const TRIES   = 8;
-  const BRIGHT_OK = 30; // この輝度以上なら採用
+  const TRIES    = 8;
+  const BRIGHT_OK = 30;
 
   let bestOx = randCropWide();
   let bestOy = randCropWide();
@@ -161,14 +133,13 @@ function applyRandomCrop(imgEl) {
     const b  = getSampleBrightness(imgEl, ox, oy);
 
     if (b < 0) {
-      // CORSが使えない → 中央寄りにフォールバック
       bestOx = randCropTight();
       bestOy = randCropTight();
       break;
     }
 
     if (b > bestBright) { bestBright = b; bestOx = ox; bestOy = oy; }
-    if (bestBright >= BRIGHT_OK) break; // 十分明るい場所が見つかった
+    if (bestBright >= BRIGHT_OK) break;
   }
 
   cropOx = bestOx;
@@ -183,7 +154,6 @@ function showCropArea() {
   const img  = document.getElementById('map-image');
   const wrap = img.parentElement;
 
-  // ズームアウトアニメーション
   img.style.transition = 'transform 0.45s ease';
   img.style.transform  = 'scale(1)';
 
@@ -204,10 +174,6 @@ function showCropArea() {
     img.style.transition = '';
   }, 450);
 }
-
-// ============================================================
-// クイズ表示
-// ============================================================
 
 function showQuestion() {
   const q = questions[currentIdx];
@@ -244,10 +210,6 @@ function showQuestion() {
   document.getElementById('crop-marker').classList.remove('visible');
 }
 
-// ============================================================
-// 選択処理
-// ============================================================
-
 function onSelect(name) {
   selectedChoice = name;
   document.querySelectorAll('.choice-btn').forEach(btn => {
@@ -255,10 +217,6 @@ function onSelect(name) {
   });
   document.getElementById('btn-answer').disabled = false;
 }
-
-// ============================================================
-// 回答処理
-// ============================================================
 
 function onAnswer(selected, correct) {
   document.querySelectorAll('.choice-btn').forEach(btn => {
@@ -291,10 +249,6 @@ function onAnswer(selected, correct) {
   btnNext.classList.add('visible');
 }
 
-// ============================================================
-// 次の問題 / 結果
-// ============================================================
-
 function nextQuestion() {
   currentIdx++;
   if (currentIdx < questions.length) {
@@ -323,10 +277,6 @@ function showResult() {
   showScreen('screen-result');
 }
 
-// ============================================================
-// ゲーム開始
-// ============================================================
-
 function startGame() {
   questions  = buildQuestions();
   currentIdx = 0;
@@ -340,10 +290,6 @@ function startGame() {
   showQuestion();
 }
 
-// ============================================================
-// イベントリスナー
-// ============================================================
-
 document.getElementById('btn-start').addEventListener('click', startGame);
 document.getElementById('btn-retry').addEventListener('click', startGame);
 document.getElementById('btn-next').addEventListener('click', nextQuestion);
@@ -352,10 +298,6 @@ document.getElementById('btn-answer').addEventListener('click', () => {
     onAnswer(selectedChoice, questions[currentIdx].correct.name);
   }
 });
-
-// ============================================================
-// 初期化
-// ============================================================
 
 (async () => {
   try {
