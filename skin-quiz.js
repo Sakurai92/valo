@@ -9,8 +9,8 @@
 const API_URL = 'https://valorant-api.com/v1/weapons?language=ja-JP';
 const TOTAL_QUESTIONS = 10;
 
-// スキップするスキン名のキーワード（デフォルトスキンなど）
-const SKIP_KEYWORDS = ['スタンダード', 'Standard', 'デフォルト', 'Default'];
+// スキップするスキン名のキーワード（デフォルトスキン・特殊スキンなど）
+const SKIP_KEYWORDS = ['スタンダード', 'Standard', 'デフォルト', 'Default', 'ランダムお気に入りスキン', 'Random Favorite', '近接武器'];
 
 /** @type {{ name: string, image: string, weapon: string }[]} */
 let allSkins = [];
@@ -44,7 +44,7 @@ async function loadSkins() {
   const skins = [];
   for (const weapon of json.data) {
     for (const skin of weapon.skins) {
-      // デフォルトスキンをスキップ
+      // デフォルトスキン・特殊スキンをスキップ
       if (SKIP_KEYWORDS.some(kw => skin.displayName.includes(kw))) continue;
 
       // 画像を取得（displayIcon → levels[0].displayIcon の順で試みる）
