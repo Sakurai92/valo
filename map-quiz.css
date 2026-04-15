@@ -247,6 +247,31 @@ h2 {
   transform: scale(0.97);
 }
 
+/* 正誤フィードバック */
+.feedback {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.feedback.correct {
+  display: block;
+  background: rgba(0, 200, 156, 0.15);
+  border: 1.5px solid var(--correct);
+  color: var(--correct);
+}
+.feedback.wrong {
+  display: block;
+  background: rgba(255, 70, 85, 0.12);
+  border: 1.5px solid var(--wrong);
+  color: var(--wrong);
+}
+
 /* 選択中（回答確定前） */
 .choice-btn.selected {
   background: rgba(255, 70, 85, 0.12);

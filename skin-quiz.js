@@ -156,6 +156,7 @@ function showQuestion() {
   btnAnswer.classList.remove('hidden');
   // 「次へ」ボタンを非表示にリセット
   document.getElementById('btn-next').classList.remove('visible');
+  document.getElementById('feedback').className = 'feedback';
 }
 
 // ============================================================
@@ -186,7 +187,17 @@ function onAnswer(selected, correct) {
     }
   });
 
-  if (selected === correct) score++;
+  const isCorrect = selected === correct;
+  if (isCorrect) score++;
+
+  const feedback = document.getElementById('feedback');
+  if (isCorrect) {
+    feedback.textContent = '✓ 正解！';
+    feedback.className = 'feedback correct';
+  } else {
+    feedback.textContent = `✗ 不正解… 正解は「${correct}」`;
+    feedback.className = 'feedback wrong';
+  }
 
   document.getElementById('btn-answer').classList.add('hidden');
 

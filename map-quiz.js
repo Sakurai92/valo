@@ -97,10 +97,25 @@ function showScreen(id) {
 // ============================================================
 
 function applyRandomCrop(imgEl) {
-  const scale = 2.5 + Math.random() * 0.5; // 2.5〜3倍ズーム
-  const margin = 50 / scale;               // 端が切れないための余白
-  const ox = margin + Math.random() * (100 - 2 * margin);
-  const oy = margin + Math.random() * (100 - 2 * margin);
+  const scale = 2 + Math.random() * 1.5; // 2〜3.5倍ズーム
+
+  // ゾーン: 中央・端・四隅をランダムに選択してバリエーションを出す
+  const zones = [
+    [50, 50],   // 中央
+    [0,   0],   // 左上
+    [100, 0],   // 右上
+    [0,  100],  // 左下
+    [100,100],  // 右下
+    [50,  0],   // 上
+    [50, 100],  // 下
+    [0,  50],   // 左
+    [100, 50],  // 右
+  ];
+  const [bx, by] = zones[Math.floor(Math.random() * zones.length)];
+  // ゾーン中心から±15%のランダムなズレを加える
+  const ox = Math.min(100, Math.max(0, bx + (Math.random() * 30 - 15)));
+  const oy = Math.min(100, Math.max(0, by + (Math.random() * 30 - 15)));
+
   imgEl.style.transformOrigin = `${ox}% ${oy}%`;
   imgEl.style.transform = `scale(${scale})`;
 }
@@ -139,6 +154,7 @@ function showQuestion() {
   btnAnswer.disabled = true;
   btnAnswer.classList.remove('hidden');
   document.getElementById('btn-next').classList.remove('visible');
+  document.getElementById('feedback').className = 'feedback';
 }
 
 // ============================================================
@@ -167,7 +183,17 @@ function onAnswer(selected, correct) {
     }
   });
 
-  if (selected === correct) score++;
+  const isCorrect = selected === correct;
+  if (isCorrect) score++;
+
+  const feedback = document.getElementById('feedback');
+  if (isCorrect) {
+    feedback.textContent = '✓ 正解！';
+    feedback.className = 'feedback correct';
+  } else {
+    feedback.textContent = `✗ 不正解… 正解は「${correct}」`;
+    feedback.className = 'feedback wrong';
+  }
 
   document.getElementById('btn-answer').classList.add('hidden');
 
