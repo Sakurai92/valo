@@ -16,24 +16,24 @@
   </div>
 
   <div id="screen-start" class="screen">
-    <div class="start-inner">
+    <div class="select-inner">
       <a href="index.html" class="btn-home">← ホーム</a>
       <p class="label">VALORANT</p>
       <h1>タイムアタック</h1>
-      <p class="desc">60秒間でできるだけ多くの問題に正解しよう！<br>スキル・スプレー・ガンバディ・スキン・カードをランダム出題</p>
-      <button id="btn-start" class="btn-primary">スタート</button>
+      <p class="desc">カテゴリを選んでスタート<br>30秒・正解 +1pt・誤答 −1pt・パスは増減なし</p>
+      <div id="category-list" class="category-list"></div>
     </div>
   </div>
 
   <div id="screen-quiz" class="screen">
     <header class="quiz-header">
-      <a href="index.html" class="btn-home">← ホーム</a>
+      <button id="btn-back" class="btn-back">← 選択</button>
       <div class="timer-num-wrap">
-        <span id="timer-num">60</span>
+        <span id="timer-num">30</span>
         <span class="timer-unit">秒</span>
       </div>
       <div class="score-wrap">
-        正解 <span id="score">0</span>
+        <span id="score">0</span><span class="score-unit">pt</span>
       </div>
     </header>
 
@@ -47,6 +47,7 @@
         <img id="q-image" src="" alt="">
       </div>
       <div id="choices" class="choices"></div>
+      <button id="btn-pass" class="btn-pass">パス（増減なし）</button>
     </div>
   </div>
 
@@ -55,13 +56,18 @@
       <a href="index.html" class="btn-home">← ホーム</a>
       <p class="label">VALORANT</p>
       <h2>タイムアップ！</h2>
-      <div class="result-score">
+      <div class="result-score-wrap">
         <span id="result-score">0</span>
-        <span class="result-denom"> / <span id="result-attempted">0</span>問正解</span>
+        <span class="result-pt">pt</span>
       </div>
-      <p class="result-pct-text">正解率 <span id="result-pct">0</span>%</p>
+      <div class="result-stats">
+        <div class="stat correct">✓ <span id="stat-correct">0</span></div>
+        <div class="stat wrong">✗ <span id="stat-wrong">0</span></div>
+        <div class="stat pass">→ <span id="stat-pass">0</span></div>
+      </div>
       <p id="result-msg" class="result-msg"></p>
       <button id="btn-retry" class="btn-primary">もう一度</button>
+      <button id="btn-change" class="btn-change">カテゴリ変更</button>
     </div>
   </div>
 
