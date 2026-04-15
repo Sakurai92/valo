@@ -69,6 +69,12 @@ html, body {
   width: 100%;
 }
 
+/* ホームボタンは左寄せ */
+.start-inner .btn-home,
+.result-inner .btn-home {
+  align-self: flex-start;
+}
+
 .label {
   font-size: 0.8rem;
   font-weight: 700;
@@ -151,12 +157,6 @@ h2 {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
-.quiz-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.1em;
-}
 .quiz-meta {
   display: flex;
   gap: 16px;
@@ -166,6 +166,24 @@ h2 {
 #q-score {
   font-weight: 700;
   color: var(--text);
+}
+
+/* ---------- ホームボタン ---------- */
+.btn-home {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border: 1.5px solid #ffffff20;
+  border-radius: 6px;
+  transition: color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-home:hover {
+  color: var(--text);
+  border-color: #ffffff50;
 }
 
 .quiz-body {

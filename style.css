@@ -44,10 +44,18 @@ body {
   z-index: 100;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
 .title {
   display: flex;
   flex-direction: column;
   line-height: 1.2;
+  min-width: 0;
 }
 
 .title-valo {
@@ -106,6 +114,25 @@ body {
   background: var(--accent-dim);
   border-color: var(--accent-dim);
   color: #fff;
+}
+
+/* ---------- ホームボタン ---------- */
+.btn-home {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border: 1.5px solid #ffffff20;
+  border-radius: 6px;
+  transition: color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-home:hover {
+  color: var(--text);
+  border-color: #ffffff50;
 }
 
 /* ---------- ロールフィルター ---------- */
