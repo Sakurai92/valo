@@ -1,0 +1,292 @@
+/* ===================================================
+   VALORANT スキン当てクイズ — スタイルシート
+   =================================================== */
+
+:root {
+  --bg:         #0f1923;
+  --bg-card:    #1a2634;
+  --bg-hover:   #243040;
+  --accent:     #ff4655;
+  --accent-dim: #c73040;
+  --correct:    #00c89c;
+  --wrong:      #ff4655;
+  --text:       #ece8e1;
+  --text-muted: #7a8a99;
+  --border:     #ffffff12;
+  --radius:     10px;
+  --transition: 0.18s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* ---------- 画面切り替え ---------- */
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.screen.active { display: flex; }
+
+/* ---------- ローディング ---------- */
+#screen-loading {
+  gap: 20px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffffff15;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- スタート・リザルト ---------- */
+.start-inner,
+.result-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.btn-primary {
+  margin-top: 8px;
+  padding: 14px 48px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background var(--transition), transform var(--transition);
+  letter-spacing: 0.06em;
+}
+.btn-primary:hover  { background: var(--accent-dim); }
+.btn-primary:active { transform: scale(0.96); }
+
+/* リザルトスコア */
+.result-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+#result-num {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.result-denom {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.result-msg {
+  font-size: 1rem;
+  color: var(--text-muted);
+  min-height: 1.5em;
+}
+
+/* ---------- クイズ画面 ---------- */
+#screen-quiz {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+#screen-quiz.active { display: flex; }
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #0d1520;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.quiz-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.quiz-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+#q-score {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.quiz-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 32px;
+  gap: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 武器名バッジ */
+.weapon-label-wrap {
+  width: 100%;
+  text-align: center;
+}
+.weapon-label {
+  display: inline-block;
+  padding: 4px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* スキン画像 */
+.skin-image-wrap {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  min-height: 140px;
+}
+#skin-image {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 選択肢 */
+.choices {
+  width: 100%;
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.choice-btn {
+  padding: 14px 10px;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.4;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  word-break: break-all;
+}
+.choice-btn:hover:not(:disabled) {
+  background: var(--bg-hover);
+  border-color: #ffffff30;
+}
+.choice-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* 回答後のフィードバック */
+.choice-btn.correct {
+  background: rgba(0, 200, 156, 0.15);
+  border-color: var(--correct);
+  color: var(--correct);
+}
+.choice-btn.wrong {
+  background: rgba(255, 70, 85, 0.12);
+  border-color: var(--wrong);
+  color: var(--wrong);
+  opacity: 0.6;
+}
+.choice-btn:disabled { cursor: default; }
+
+/* 次へボタン（回答後に出現） */
+#btn-next {
+  width: 100%;
+  max-width: 480px;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: none;
+  transition: background var(--transition);
+  letter-spacing: 0.04em;
+}
+#btn-next:hover  { background: var(--accent-dim); }
+#btn-next.visible { display: block; }
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 400px) {
+  .choices { grid-template-columns: 1fr; }
+  .choice-btn { font-size: 0.78rem; }
+  h1 { font-size: 1.5rem; }
+}

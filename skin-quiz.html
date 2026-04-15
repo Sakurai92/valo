@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>VALORANT スキン当てクイズ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="skin-quiz.css?v=1">
+</head>
+<body>
+
+  <!-- ローディング画面 -->
+  <div id="screen-loading" class="screen active">
+    <div class="spinner"></div>
+    <p>スキンデータを読み込み中…</p>
+  </div>
+
+  <!-- スタート画面 -->
+  <div id="screen-start" class="screen">
+    <div class="start-inner">
+      <p class="label">VALORANT</p>
+      <h1>スキン当てクイズ</h1>
+      <p class="desc">スキン画像を見てスキン名を当てよう！<br>全10問</p>
+      <button id="btn-start" class="btn-primary">スタート</button>
+    </div>
+  </div>
+
+  <!-- クイズ画面 -->
+  <div id="screen-quiz" class="screen">
+    <header class="quiz-header">
+      <span class="quiz-label">VALORANT スキン当てクイズ</span>
+      <div class="quiz-meta">
+        <span id="q-progress">1 / 10</span>
+        <span id="q-score">0点</span>
+      </div>
+    </header>
+
+    <div class="quiz-body">
+      <div class="weapon-label-wrap">
+        <span class="weapon-label" id="weapon-name"></span>
+      </div>
+
+      <div class="skin-image-wrap">
+        <img id="skin-image" src="" alt="スキン画像">
+      </div>
+
+      <div id="choices" class="choices"></div>
+    </div>
+  </div>
+
+  <!-- リザルト画面 -->
+  <div id="screen-result" class="screen">
+    <div class="result-inner">
+      <p class="label">VALORANT</p>
+      <h2>クイズ結果</h2>
+      <div class="result-score">
+        <span id="result-num">0</span>
+        <span class="result-denom"> / 10問正解</span>
+      </div>
+      <p id="result-msg" class="result-msg"></p>
+      <button id="btn-retry" class="btn-primary">もう一度</button>
+    </div>
+  </div>
+
+  <script src="skin-quiz.js?v=1"></script>
+</body>
+</html>
