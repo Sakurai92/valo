@@ -25,7 +25,18 @@ let score       = 0;    // 正解数
 // ============================================================
 
 async function loadSkins() {
-  const res = await fetch(API_URL);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000); // 15秒でタイムアウト
+
+  let res;
+  try {
+    res = await fetch(API_URL, { signal: controller.signal });
+  } catch (e) {
+    throw new Error('タイムアウトまたはネットワークエラー');
+  } finally {
+    clearTimeout(timeout);
+  }
+
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = await res.json();
 
