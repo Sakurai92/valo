@@ -25,10 +25,10 @@ async function loadSprays() {
   const json = await res.json();
 
   return json.data
-    .filter(s => s.fullIcon || s.displayIcon)
+    .filter(s => s.animationGif || s.fullIcon || s.displayIcon)
     .map(s => ({
       name:  s.displayName,
-      image: s.fullIcon ?? s.displayIcon,
+      image: s.animationGif ?? s.fullIcon ?? s.displayIcon,
     }));
 }
 
