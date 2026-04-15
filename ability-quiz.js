@@ -60,11 +60,11 @@ function pickRandom(arr, n) {
 }
 
 function createQuestion(ability) {
-  const others = allAgentNames.filter(name => name !== ability.agentName);
-  const wrongs = pickRandom(others, 3);
+  const others = allAbilities.filter(a => a.abilityName !== ability.abilityName);
+  const wrongs = pickRandom(others, 3).map(a => a.abilityName);
   return {
     correct: ability,
-    choices: shuffle([ability.agentName, ...wrongs]),
+    choices: shuffle([ability.abilityName, ...wrongs]),
   };
 }
 
@@ -91,11 +91,11 @@ function showQuestion() {
 
   const choicesEl = document.getElementById('choices');
   choicesEl.innerHTML = '';
-  q.choices.forEach(agentName => {
+  q.choices.forEach(abilityName => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
-    btn.textContent = agentName;
-    btn.addEventListener('click', () => onSelect(agentName));
+    btn.textContent = abilityName;
+    btn.addEventListener('click', () => onSelect(abilityName));
     choicesEl.appendChild(btn);
   });
 
@@ -133,10 +133,10 @@ function onAnswer(selected, correct) {
 
   const feedback = document.getElementById('feedback');
   if (isCorrect) {
-    feedback.textContent = '✓ 正解！';
+    feedback.textContent = `✓ 正解！（${questions[currentIdx].correct.agentName}）`;
     feedback.className = 'feedback correct';
   } else {
-    feedback.textContent = `✗ 不正解… 正解は「${correct}」`;
+    feedback.textContent = `✗ 不正解… 正解は「${correct}」（${questions[currentIdx].correct.agentName}）`;
     feedback.className = 'feedback wrong';
   }
 
@@ -187,7 +187,7 @@ document.getElementById('btn-retry').addEventListener('click', startGame);
 document.getElementById('btn-next').addEventListener('click', nextQuestion);
 document.getElementById('btn-answer').addEventListener('click', () => {
   if (selectedChoice !== null) {
-    onAnswer(selectedChoice, questions[currentIdx].correct.agentName);
+    onAnswer(selectedChoice, questions[currentIdx].correct.abilityName);
   }
 });
 
