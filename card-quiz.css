@@ -134,7 +134,7 @@ h2 {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  overflow-y: auto;
+  overflow: hidden;
 }
 #screen-quiz.active { display: flex; }
 
@@ -192,6 +192,7 @@ h2 {
   width: 100%;
   max-width: 480px;
   min-height: 0;
+  max-height: 60dvh;
   background: var(--bg-card);
   border-radius: var(--radius);
   border: 1px solid var(--border);
