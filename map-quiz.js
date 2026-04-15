@@ -133,8 +133,8 @@ function applyRandomCrop(imgEl) {
     const b  = getSampleBrightness(imgEl, ox, oy);
 
     if (b < 0) {
-      bestOx = randCropTight();
-      bestOy = randCropTight();
+      bestOx = randCropWide();
+      bestOy = randCropWide();
       break;
     }
 
