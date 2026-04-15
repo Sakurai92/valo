@@ -97,25 +97,9 @@ function showScreen(id) {
 // ============================================================
 
 function applyRandomCrop(imgEl) {
-  const scale = 2 + Math.random() * 1.5; // 2〜3.5倍ズーム
-
-  // ゾーン: 中央・端・四隅をランダムに選択してバリエーションを出す
-  const zones = [
-    [50, 50],   // 中央
-    [0,   0],   // 左上
-    [100, 0],   // 右上
-    [0,  100],  // 左下
-    [100,100],  // 右下
-    [50,  0],   // 上
-    [50, 100],  // 下
-    [0,  50],   // 左
-    [100, 50],  // 右
-  ];
-  const [bx, by] = zones[Math.floor(Math.random() * zones.length)];
-  // ゾーン中心から±15%のランダムなズレを加える
-  const ox = Math.min(100, Math.max(0, bx + (Math.random() * 30 - 15)));
-  const oy = Math.min(100, Math.max(0, by + (Math.random() * 30 - 15)));
-
+  const scale = 4;
+  const ox = Math.random() * 100;
+  const oy = Math.random() * 100;
   imgEl.style.transformOrigin = `${ox}% ${oy}%`;
   imgEl.style.transform = `scale(${scale})`;
 }
