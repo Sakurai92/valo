@@ -9,7 +9,7 @@ const API_URL = 'https://valorant-api.com/v1/maps?language=ja-JP';
 const TOTAL_QUESTIONS = 10;
 
 // 競技マップ以外をスキップ（mapUrl に含まれるキーワード）
-const SKIP_URLS = ['Range', 'HURM', 'Tutorial', 'Poveglia'];
+const SKIP_URLS = ['Range', 'HURM', 'Tutorial', 'Poveglia', 'Skirmish'];
 
 /** @type {{ name: string, image: string }[]} */
 let allMaps = [];
