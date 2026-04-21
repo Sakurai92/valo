@@ -72,17 +72,19 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
 }
 
-const CROP_SCALE = 5;
+const CROP_SCALE     = 5;
+const GRID           = 10;    // 10×10 = 100 候補点
+const DARK_THRESHOLD = 0.25;  // 暗ピクセル25%超は除外
+const validZoneCache = {};
 
-function randCropWide() { return Math.random() * 100; }
-
+// canvas でクロップ候補位置の暗さを計測
 function getDarkRatio(imgEl, ox, oy) {
-  const W = imgEl.offsetWidth || 480;
+  const W = imgEl.offsetWidth  || 480;
   const H = imgEl.offsetHeight || 260;
   const visLeft = ox / 100 * W * (CROP_SCALE - 1) / CROP_SCALE;
   const visTop  = oy / 100 * H * (CROP_SCALE - 1) / CROP_SCALE;
-  const visW = W / CROP_SCALE;
-  const visH = H / CROP_SCALE;
+  const visW    = W / CROP_SCALE;
+  const visH    = H / CROP_SCALE;
 
   const nw = imgEl.naturalWidth;
   const nh = imgEl.naturalHeight;
@@ -113,40 +115,52 @@ function getDarkRatio(imgEl, ox, oy) {
   }
 }
 
-function applyRandomCrop(imgEl) {
-  const TRIES    = 20;
-  const MAX_DARK = 0.7;
+// 画像を10×10グリッドで事前解析し、暗くない位置だけリストアップ
+function buildValidZones(imgEl) {
+  const url = imgEl.src;
+  if (validZoneCache[url]) return validZoneCache[url];
 
-  let bestOx   = randCropWide();
-  let bestOy   = randCropWide();
-  let bestDark = Infinity;
+  const zones = [];
+  const step  = 80 / (GRID - 1); // 10%〜90% を均等分割
 
-  for (let i = 0; i < TRIES; i++) {
-    const ox   = randCropWide();
-    const oy   = randCropWide();
-    const dark = getDarkRatio(imgEl, ox, oy);
-
-    if (dark < 0) {
-      bestOx = ox;
-      bestOy = oy;
-      break;
+  for (let row = 0; row < GRID; row++) {
+    for (let col = 0; col < GRID; col++) {
+      const ox   = 10 + col * step;
+      const oy   = 10 + row * step;
+      const dark = getDarkRatio(imgEl, ox, oy);
+      if (dark >= 0 && dark <= DARK_THRESHOLD) {
+        zones.push({ ox, oy });
+      }
     }
-
-    if (dark < bestDark) {
-      bestDark = dark;
-      bestOx = ox;
-      bestOy = oy;
-    }
-
-    if (bestDark <= MAX_DARK) break;
   }
 
-  cropOx = bestOx;
-  cropOy = bestOy;
-  imgEl.style.transition = '';
+  const result = zones.length >= 4 ? zones : null;
+  validZoneCache[url] = result;
+  return result;
+}
+
+// 有効ゾーンからランダムに1点選び、セル内でジッターを加えて返す
+function pickCropFromZones(zones) {
+  if (!zones) {
+    return { ox: 10 + Math.random() * 80, oy: 10 + Math.random() * 80 };
+  }
+  const zone   = zones[Math.floor(Math.random() * zones.length)];
+  const jitter = (80 / (GRID - 1)) * 0.45;
+  return {
+    ox: Math.max(5, Math.min(95, zone.ox + (Math.random() * 2 - 1) * jitter)),
+    oy: Math.max(5, Math.min(95, zone.oy + (Math.random() * 2 - 1) * jitter)),
+  };
+}
+
+function applyRandomCrop(imgEl) {
+  const zones      = buildValidZones(imgEl);
+  const { ox, oy } = pickCropFromZones(zones);
+  cropOx = ox;
+  cropOy = oy;
+  imgEl.style.transition      = '';
   imgEl.style.transformOrigin = `${cropOx}% ${cropOy}%`;
-  imgEl.style.transform = `scale(${CROP_SCALE})`;
-  imgEl.style.opacity = '1';
+  imgEl.style.transform       = `scale(${CROP_SCALE})`;
+  imgEl.style.opacity         = '1';
 }
 
 function showCropArea() {
