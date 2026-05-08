@@ -117,23 +117,12 @@
       border-bottom-right-radius: 0;
     }
 
-    .folder-count {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--muted);
-      background: #ffffff0d;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: auto;
-      white-space: nowrap;
-    }
-
     .folder-chevron {
       font-size: 1rem;
       color: var(--muted);
       flex-shrink: 0;
       transition: transform 0.25s ease;
-      margin-left: 8px;
+      margin-left: auto;
     }
     .folder-btn.open .folder-chevron { transform: rotate(90deg); }
 
@@ -145,9 +134,7 @@
     }
     .folder-body.open { grid-template-rows: 1fr; }
 
-    .folder-inner {
-      overflow: hidden;
-    }
+    .folder-inner { overflow: hidden; }
 
     .sub-cards {
       display: flex;
@@ -198,14 +185,26 @@
 </head>
 <body>
 
-  <span class="version">ver 0.2.5</span>
+  <span class="version">ver 0.2.6</span>
   <p class="logo">VALORANT</p>
   <h1>ゲーム集</h1>
 
   <div class="cards">
 
+    <!-- ── ゲーム系 ── -->
+    <p class="section-label">ゲーム</p>
+
+    <a class="card" href="agent-game.html">
+      <div class="card-icon">🕵️</div>
+      <div class="card-text">
+        <div class="card-title">エージェント当てゲーム</div>
+        <div class="card-desc">質問しながらエージェントを絞り込もう</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </a>
+
     <!-- ── ツール系 ── -->
-    <p class="section-label">ツール</p>
+    <p class="section-label" style="margin-top:4px">ツール</p>
 
     <a class="card" href="agent-pick.html">
       <div class="card-icon">🎲</div>
@@ -225,88 +224,205 @@
       <div class="card-arrow">›</div>
     </a>
 
-    <!-- ── ゲーム系 ── -->
-    <p class="section-label" style="margin-top:4px">ゲーム</p>
-
-    <a class="card" href="time-attack.html">
-      <div class="card-icon">⏱️</div>
-      <div class="card-text">
-        <div class="card-title">タイムアタック</div>
-        <div class="card-desc">30秒・正解+1pt・誤答-1pt・カテゴリ選択制</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="agent-game.html">
-      <div class="card-icon">🕵️</div>
-      <div class="card-text">
-        <div class="card-title">エージェント当てゲーム</div>
-        <div class="card-desc">質問しながらエージェントを絞り込もう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <!-- ── クイズ（フォルダ） ── -->
+    <!-- ── クイズ系 ── -->
     <p class="section-label" style="margin-top:4px">クイズ</p>
 
+    <!-- スキン -->
     <div class="folder">
-      <button class="folder-btn" id="quiz-folder-btn" onclick="toggleFolder()">
-        <div class="card-icon">📋</div>
+      <button class="folder-btn" id="skin-btn" onclick="toggleFolder('skin')">
+        <div class="card-icon">🔫</div>
         <div class="card-text">
-          <div class="card-title">当てクイズ</div>
-          <div class="card-desc">画像を見て名前を4択で当てよう</div>
+          <div class="card-title">スキン当てクイズ</div>
+          <div class="card-desc">スキン画像からスキン名を当てよう</div>
         </div>
-        <span class="folder-count">6種</span>
         <span class="folder-chevron">›</span>
       </button>
-      <div class="folder-body" id="quiz-folder-body">
+      <div class="folder-body" id="skin-body">
         <div class="folder-inner">
           <div class="sub-cards">
             <a class="sub-card" href="skin-quiz.html">
-              <div class="card-icon">🔫</div>
+              <div class="card-icon">📝</div>
               <div class="card-text">
-                <div class="card-title">スキン当てクイズ</div>
-                <div class="card-desc">スキン画像からスキン名を当てよう</div>
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
+            <a class="sub-card" href="time-attack.html?category=skin">
+              <div class="card-icon">⏱️</div>
+              <div class="card-text">
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- マップ -->
+    <div class="folder">
+      <button class="folder-btn" id="map-btn" onclick="toggleFolder('map')">
+        <div class="card-icon">🗺️</div>
+        <div class="card-text">
+          <div class="card-title">マップ当てクイズ</div>
+          <div class="card-desc">ミニマップの一部からマップ名を当てよう</div>
+        </div>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="map-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
             <a class="sub-card" href="map-quiz.html">
-              <div class="card-icon">🗺️</div>
+              <div class="card-icon">📝</div>
               <div class="card-text">
-                <div class="card-title">マップ当てクイズ</div>
-                <div class="card-desc">ミニマップの一部からマップ名を当てよう</div>
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
+            <a class="sub-card" href="time-attack.html?category=map">
+              <div class="card-icon">⏱️</div>
+              <div class="card-text">
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- アビリティ -->
+    <div class="folder">
+      <button class="folder-btn" id="ability-btn" onclick="toggleFolder('ability')">
+        <div class="card-icon">⚡</div>
+        <div class="card-text">
+          <div class="card-title">アビリティ当てクイズ</div>
+          <div class="card-desc">アビリティアイコンからスキル名を当てよう</div>
+        </div>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="ability-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
             <a class="sub-card" href="ability-quiz.html">
-              <div class="card-icon">⚡</div>
+              <div class="card-icon">📝</div>
               <div class="card-text">
-                <div class="card-title">アビリティ当てクイズ</div>
-                <div class="card-desc">アビリティアイコンからスキル名を当てよう</div>
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
+            <a class="sub-card" href="time-attack.html?category=ability">
+              <div class="card-icon">⏱️</div>
+              <div class="card-text">
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- スプレー -->
+    <div class="folder">
+      <button class="folder-btn" id="spray-btn" onclick="toggleFolder('spray')">
+        <div class="card-icon">🎨</div>
+        <div class="card-text">
+          <div class="card-title">スプレー当てクイズ</div>
+          <div class="card-desc">スプレー画像から名前を当てよう</div>
+        </div>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="spray-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
             <a class="sub-card" href="spray-quiz.html">
-              <div class="card-icon">🎨</div>
+              <div class="card-icon">📝</div>
               <div class="card-text">
-                <div class="card-title">スプレー当てクイズ</div>
-                <div class="card-desc">スプレー画像から名前を当てよう</div>
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
+            <a class="sub-card" href="time-attack.html?category=spray">
+              <div class="card-icon">⏱️</div>
+              <div class="card-text">
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- カード -->
+    <div class="folder">
+      <button class="folder-btn" id="card-btn" onclick="toggleFolder('card')">
+        <div class="card-icon">🪪</div>
+        <div class="card-text">
+          <div class="card-title">カード当てクイズ</div>
+          <div class="card-desc">プレイヤーカード画像から名前を当てよう</div>
+        </div>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="card-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
             <a class="sub-card" href="card-quiz.html">
-              <div class="card-icon">🪪</div>
+              <div class="card-icon">📝</div>
               <div class="card-text">
-                <div class="card-title">カード当てクイズ</div>
-                <div class="card-desc">プレイヤーカード画像から名前を当てよう</div>
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
-            <a class="sub-card" href="buddy-quiz.html">
-              <div class="card-icon">🧸</div>
+            <a class="sub-card" href="time-attack.html?category=card">
+              <div class="card-icon">⏱️</div>
               <div class="card-text">
-                <div class="card-title">ガンバディ当てクイズ</div>
-                <div class="card-desc">ガンバディ画像から名前を当てよう</div>
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ガンバディ -->
+    <div class="folder">
+      <button class="folder-btn" id="buddy-btn" onclick="toggleFolder('buddy')">
+        <div class="card-icon">🧸</div>
+        <div class="card-text">
+          <div class="card-title">ガンバディ当てクイズ</div>
+          <div class="card-desc">ガンバディ画像から名前を当てよう</div>
+        </div>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="buddy-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
+            <a class="sub-card" href="buddy-quiz.html">
+              <div class="card-icon">📝</div>
+              <div class="card-text">
+                <div class="card-title">普通の当てクイズ</div>
+                <div class="card-desc">4択でじっくり回答</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="time-attack.html?category=buddy">
+              <div class="card-icon">⏱️</div>
+              <div class="card-text">
+                <div class="card-title">タイムアタック</div>
+                <div class="card-desc">30秒で何問解けるか挑戦！</div>
               </div>
               <div class="card-arrow">›</div>
             </a>
@@ -320,9 +436,9 @@
   <footer>© sakurai92</footer>
 
   <script>
-    function toggleFolder() {
-      const btn  = document.getElementById('quiz-folder-btn');
-      const body = document.getElementById('quiz-folder-body');
+    function toggleFolder(id) {
+      const btn  = document.getElementById(id + '-btn');
+      const body = document.getElementById(id + '-body');
       const open = btn.classList.toggle('open');
       body.classList.toggle('open', open);
     }

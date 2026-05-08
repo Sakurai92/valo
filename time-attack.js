@@ -281,7 +281,13 @@ buildCategoryList();
 (async () => {
   try {
     await buildPools();
-    showScreen('screen-start');
+    const presetId = new URLSearchParams(location.search).get('category');
+    const presetCat = presetId ? CATEGORIES.find(c => c.id === presetId) : null;
+    if (presetCat) {
+      startGame(presetCat);
+    } else {
+      showScreen('screen-start');
+    }
   } catch (e) {
     console.error('Failed to load:', e);
     document.getElementById('screen-loading').innerHTML = `
