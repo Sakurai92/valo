@@ -33,11 +33,7 @@ html, body {
 .screen.active { display: flex; }
 
 /* ── ローディング ── */
-#screen-loading {
-  gap: 20px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
+#screen-loading { gap: 20px; color: var(--text-muted); font-size: 0.9rem; }
 .spinner {
   width: 40px; height: 40px;
   border: 3px solid #ffffff15;
@@ -58,22 +54,11 @@ html, body {
   border-radius: 6px;
   transition: color var(--transition), border-color var(--transition);
   align-self: flex-start;
-  white-space: nowrap;
 }
 .btn-home:hover { color: var(--text); border-color: #ffffff50; }
 
-.label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-}
-
-h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
+.label { font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.15em; }
+h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 
 .btn-primary {
   width: 100%;
@@ -89,35 +74,38 @@ h1 {
   transition: background var(--transition), transform var(--transition);
   letter-spacing: 0.06em;
 }
-.btn-primary:hover  { background: var(--accent-dim); }
-.btn-primary:active { transform: scale(0.97); }
+.btn-primary:hover   { background: var(--accent-dim); }
+.btn-primary:active  { transform: scale(0.97); }
+.btn-primary:disabled {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: default;
+  transform: none;
+}
 
 /* ── セットアップ画面 ── */
-#screen-setup {
-  justify-content: flex-start;
-  overflow-y: auto;
-}
+#screen-setup { justify-content: flex-start; overflow-y: auto; }
+
 .setup-scroll {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 32px 20px 48px;
+  gap: 22px;
+  padding: 32px 20px 56px;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
 }
 
 .section { display: flex; flex-direction: column; gap: 10px; }
 .section-title {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-muted);
   letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.count-btns {
-  display: flex;
-  gap: 10px;
-}
+/* 人数ボタン */
+.count-btns { display: flex; gap: 10px; }
 .count-btn {
   flex: 1;
   padding: 12px 0;
@@ -132,12 +120,9 @@ h1 {
   transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 .count-btn:hover  { background: var(--bg-hover); color: var(--text); }
-.count-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
+.count-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
+/* 名前入力 */
 .name-inputs { display: flex; flex-direction: column; gap: 8px; }
 .name-input {
   width: 100%;
@@ -154,11 +139,77 @@ h1 {
 .name-input:focus { border-color: var(--accent); }
 .name-input::placeholder { color: var(--text-muted); }
 
-/* ── 結果画面 ── */
-#screen-result {
-  justify-content: flex-start;
-  overflow-y: auto;
+/* ── ロールフィルター ── */
+.role-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.role-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  white-space: nowrap;
 }
+.role-btn:hover   { background: var(--bg-hover); color: var(--text); }
+.role-btn.active  { background: var(--accent); border-color: var(--accent); color: #fff; }
+.role-btn.partial { border-color: var(--accent); color: var(--accent); background: rgba(255,70,85,0.08); }
+
+/* ── エージェントチップ ── */
+.agent-chips {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+}
+
+.agent-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px 8px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity var(--transition), border-color var(--transition);
+  opacity: 0.28;
+  -webkit-tap-highlight-color: transparent;
+}
+.agent-chip.on { opacity: 1; border-color: #ffffff28; }
+.agent-chip.on:hover { border-color: #ffffff55; }
+
+.agent-chip img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 5px;
+  background: #0d1520;
+  display: block;
+}
+.chip-name {
+  font-size: 0.58rem;
+  text-align: center;
+  color: var(--text-muted);
+  line-height: 1.25;
+  word-break: break-all;
+}
+
+.filter-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+.filter-count.warn { color: var(--accent); }
+
+/* ── 結果画面 ── */
+#screen-result { justify-content: flex-start; overflow-y: auto; }
+
 .result-scroll {
   display: flex;
   flex-direction: column;
@@ -171,15 +222,15 @@ h1 {
 
 .pick-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 12px;
 }
+.pick-cards.solo { grid-template-columns: 180px; justify-content: center; }
 
 @keyframes cardIn {
-  from { opacity: 0; transform: translateY(18px) scale(0.95); }
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
   to   { opacity: 1; transform: none; }
 }
-
 .pick-card {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
@@ -191,7 +242,6 @@ h1 {
   padding-bottom: 14px;
   animation: cardIn 0.35s ease both;
 }
-
 .pick-card:nth-child(1) { animation-delay: 0.00s; }
 .pick-card:nth-child(2) { animation-delay: 0.10s; }
 .pick-card:nth-child(3) { animation-delay: 0.20s; }
@@ -206,22 +256,15 @@ h1 {
   display: block;
   background: #0d1520;
 }
-
 .pick-card .agent-name {
   margin-top: 10px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-align: center;
   padding: 0 8px;
   line-height: 1.3;
 }
-
-.pick-card .agent-role {
-  margin-top: 3px;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
+.pick-card .agent-role  { margin-top: 3px; font-size: 0.7rem; color: var(--text-muted); }
 .pick-card .player-label {
   margin-top: 6px;
   font-size: 0.72rem;
@@ -233,12 +276,7 @@ h1 {
   word-break: break-all;
 }
 
-.result-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.result-actions { display: flex; flex-direction: column; gap: 10px; }
 .btn-back {
   width: 100%;
   padding: 12px;
@@ -253,11 +291,3 @@ h1 {
   transition: color var(--transition), border-color var(--transition);
 }
 .btn-back:hover { color: var(--text); border-color: #ffffff45; }
-
-/* 1人だけの時はカードを中央に大きく */
-.pick-cards.solo {
-  grid-template-columns: 180px;
-  justify-content: center;
-}
-.pick-cards.solo .pick-card .agent-name { font-size: 1rem; }
-.pick-cards.solo .pick-card .player-label { font-size: 0.82rem; }
