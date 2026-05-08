@@ -51,16 +51,17 @@
     .cards {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       width: 100%;
       max-width: 420px;
     }
 
+    /* ── 通常カード ── */
     .card {
       display: flex;
       align-items: center;
       gap: 20px;
-      padding: 24px 20px;
+      padding: 22px 20px;
       background: var(--card);
       border: 1.5px solid var(--border);
       border-radius: 12px;
@@ -70,39 +71,114 @@
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
-    .card:hover {
-      background: var(--hover);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
+    .card:hover  { background: var(--hover); border-color: var(--accent); transform: translateY(-2px); }
     .card:active { transform: scale(0.98); }
 
-    .card-icon {
-      font-size: 2.2rem;
-      flex-shrink: 0;
-      width: 48px;
-      text-align: center;
-    }
+    .card-icon  { font-size: 2.2rem; flex-shrink: 0; width: 48px; text-align: center; }
+    .card-text  { flex: 1; }
+    .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .card-desc  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .card-arrow { font-size: 1.1rem; color: var(--muted); flex-shrink: 0; }
 
-    .card-text { flex: 1; }
-
-    .card-title {
-      font-size: 1rem;
+    /* ── セクションラベル ── */
+    .section-label {
+      font-size: 0.7rem;
       font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .card-desc {
-      font-size: 0.78rem;
       color: var(--muted);
-      line-height: 1.5;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0 4px;
+      margin-top: 4px;
     }
 
-    .card-arrow {
-      font-size: 1.1rem;
+    /* ── フォルダ ── */
+    .folder { display: flex; flex-direction: column; }
+
+    .folder-btn {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 20px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      width: 100%;
+      text-align: left;
+      transition: background 0.18s, border-color 0.18s, border-radius 0.18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .folder-btn:hover { background: var(--hover); border-color: var(--accent); }
+    .folder-btn.open  {
+      border-color: var(--accent);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .folder-count {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: #ffffff0d;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .folder-chevron {
+      font-size: 1rem;
       color: var(--muted);
       flex-shrink: 0;
+      transition: transform 0.25s ease;
+      margin-left: 8px;
     }
+    .folder-btn.open .folder-chevron { transform: rotate(90deg); }
+
+    /* グリッドアニメーションで展開 */
+    .folder-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.28s ease;
+    }
+    .folder-body.open { grid-template-rows: 1fr; }
+
+    .folder-inner {
+      overflow: hidden;
+    }
+
+    .sub-cards {
+      display: flex;
+      flex-direction: column;
+      border: 1.5px solid var(--accent);
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      overflow: hidden;
+    }
+
+    .sub-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      background: #131e2b;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.15s;
+      border-top: 1px solid var(--border);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sub-card:first-child { border-top: none; }
+    .sub-card:last-child  { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .sub-card:hover       { background: #1a2939; }
+    .sub-card:active      { background: var(--hover); }
+
+    .sub-card .card-icon  { font-size: 1.7rem; width: 38px; }
+    .sub-card .card-title { font-size: 0.9rem; }
+    .sub-card .card-desc  { font-size: 0.74rem; }
 
     footer {
       margin-top: 48px;
@@ -122,73 +198,14 @@
 </head>
 <body>
 
-  <span class="version">ver 0.2.4</span>
+  <span class="version">ver 0.2.5</span>
   <p class="logo">VALORANT</p>
   <h1>ゲーム集</h1>
 
   <div class="cards">
-    <a class="card" href="agent-game.html">
-      <div class="card-icon">🕵️</div>
-      <div class="card-text">
-        <div class="card-title">エージェント当てゲーム</div>
-        <div class="card-desc">質問しながらエージェントを絞り込もう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
 
-    <a class="card" href="skin-quiz.html">
-      <div class="card-icon">🔫</div>
-      <div class="card-text">
-        <div class="card-title">スキン当てクイズ</div>
-        <div class="card-desc">スキン画像を見てスキン名を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="map-quiz.html">
-      <div class="card-icon">🗺️</div>
-      <div class="card-text">
-        <div class="card-title">マップ当てクイズ</div>
-        <div class="card-desc">ミニマップ画像を見てマップ名を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="ability-quiz.html">
-      <div class="card-icon">⚡</div>
-      <div class="card-text">
-        <div class="card-title">アビリティ当てクイズ</div>
-        <div class="card-desc">アビリティアイコンを見てスキル名を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="spray-quiz.html">
-      <div class="card-icon">🎨</div>
-      <div class="card-text">
-        <div class="card-title">スプレー当てクイズ</div>
-        <div class="card-desc">スプレー画像を見て名前を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="card-quiz.html">
-      <div class="card-icon">🪪</div>
-      <div class="card-text">
-        <div class="card-title">カード当てクイズ</div>
-        <div class="card-desc">プレイヤーカード画像を見て名前を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-
-    <a class="card" href="buddy-quiz.html">
-      <div class="card-icon">🧸</div>
-      <div class="card-text">
-        <div class="card-title">ガンバディ当てクイズ</div>
-        <div class="card-desc">ガンバディ画像を見て名前を4択で当てよう</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
+    <!-- ── ツール系 ── -->
+    <p class="section-label">ツール</p>
 
     <a class="card" href="agent-pick.html">
       <div class="card-icon">🎲</div>
@@ -208,6 +225,9 @@
       <div class="card-arrow">›</div>
     </a>
 
+    <!-- ── ゲーム系 ── -->
+    <p class="section-label" style="margin-top:4px">ゲーム</p>
+
     <a class="card" href="time-attack.html">
       <div class="card-icon">⏱️</div>
       <div class="card-text">
@@ -216,9 +236,97 @@
       </div>
       <div class="card-arrow">›</div>
     </a>
+
+    <a class="card" href="agent-game.html">
+      <div class="card-icon">🕵️</div>
+      <div class="card-text">
+        <div class="card-title">エージェント当てゲーム</div>
+        <div class="card-desc">質問しながらエージェントを絞り込もう</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </a>
+
+    <!-- ── クイズ（フォルダ） ── -->
+    <p class="section-label" style="margin-top:4px">クイズ</p>
+
+    <div class="folder">
+      <button class="folder-btn" id="quiz-folder-btn" onclick="toggleFolder()">
+        <div class="card-icon">📋</div>
+        <div class="card-text">
+          <div class="card-title">当てクイズ</div>
+          <div class="card-desc">画像を見て名前を4択で当てよう</div>
+        </div>
+        <span class="folder-count">6種</span>
+        <span class="folder-chevron">›</span>
+      </button>
+      <div class="folder-body" id="quiz-folder-body">
+        <div class="folder-inner">
+          <div class="sub-cards">
+            <a class="sub-card" href="skin-quiz.html">
+              <div class="card-icon">🔫</div>
+              <div class="card-text">
+                <div class="card-title">スキン当てクイズ</div>
+                <div class="card-desc">スキン画像からスキン名を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="map-quiz.html">
+              <div class="card-icon">🗺️</div>
+              <div class="card-text">
+                <div class="card-title">マップ当てクイズ</div>
+                <div class="card-desc">ミニマップの一部からマップ名を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="ability-quiz.html">
+              <div class="card-icon">⚡</div>
+              <div class="card-text">
+                <div class="card-title">アビリティ当てクイズ</div>
+                <div class="card-desc">アビリティアイコンからスキル名を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="spray-quiz.html">
+              <div class="card-icon">🎨</div>
+              <div class="card-text">
+                <div class="card-title">スプレー当てクイズ</div>
+                <div class="card-desc">スプレー画像から名前を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="card-quiz.html">
+              <div class="card-icon">🪪</div>
+              <div class="card-text">
+                <div class="card-title">カード当てクイズ</div>
+                <div class="card-desc">プレイヤーカード画像から名前を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+            <a class="sub-card" href="buddy-quiz.html">
+              <div class="card-icon">🧸</div>
+              <div class="card-text">
+                <div class="card-title">ガンバディ当てクイズ</div>
+                <div class="card-desc">ガンバディ画像から名前を当てよう</div>
+              </div>
+              <div class="card-arrow">›</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <footer>© sakurai92</footer>
+
+  <script>
+    function toggleFolder() {
+      const btn  = document.getElementById('quiz-folder-btn');
+      const body = document.getElementById('quiz-folder-body');
+      const open = btn.classList.toggle('open');
+      body.classList.toggle('open', open);
+    }
+  </script>
 
 </body>
 </html>
