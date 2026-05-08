@@ -34,11 +34,7 @@ html, body {
 }
 .screen.active { display: flex; }
 
-#screen-loading {
-  gap: 20px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
+#screen-loading { gap: 20px; color: var(--text-muted); font-size: 0.9rem; }
 
 .spinner {
   width: 40px;
@@ -50,30 +46,10 @@ html, body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-}
-
-h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.desc {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.7;
-  text-align: center;
-}
+.label { font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.15em; }
+h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+.desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; text-align: center; }
 
 .btn-home {
   color: var(--text-muted);
@@ -87,11 +63,9 @@ h2 {
   white-space: nowrap;
   align-self: flex-start;
 }
-.btn-home:hover {
-  color: var(--text);
-  border-color: #ffffff50;
-}
+.btn-home:hover { color: var(--text); border-color: #ffffff50; }
 
+/* ---------- スタート画面 ---------- */
 .select-inner {
   display: flex;
   flex-direction: column;
@@ -132,6 +106,7 @@ h2 {
 .cat-icon  { font-size: 1.8rem; line-height: 1; }
 .cat-label { font-size: 0.82rem; font-weight: 700; }
 
+/* ---------- クイズ画面 ---------- */
 #screen-quiz {
   display: none;
   flex-direction: column;
@@ -166,11 +141,7 @@ h2 {
 }
 .btn-back:hover { color: var(--text); border-color: #ffffff50; }
 
-.timer-num-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 3px;
-}
+.timer-num-wrap { display: flex; align-items: baseline; gap: 3px; }
 #timer-num {
   font-size: 1.8rem;
   font-weight: 700;
@@ -182,11 +153,7 @@ h2 {
 }
 .timer-unit { font-size: 0.78rem; color: var(--text-muted); }
 
-.score-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-}
+.score-wrap { display: flex; align-items: baseline; gap: 2px; }
 #score {
   font-size: 1.4rem;
   font-weight: 700;
@@ -197,17 +164,8 @@ h2 {
 }
 .score-unit { font-size: 0.78rem; color: var(--text-muted); }
 
-.timer-bar-wrap {
-  width: 100%;
-  height: 5px;
-  background: #ffffff10;
-  flex-shrink: 0;
-}
-.timer-bar {
-  height: 100%;
-  width: 100%;
-  background: var(--accent);
-}
+.timer-bar-wrap { width: 100%; height: 5px; background: #ffffff10; flex-shrink: 0; }
+.timer-bar { height: 100%; width: 100%; background: var(--accent); }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -256,6 +214,9 @@ h2 {
   -webkit-user-drag: none;
 }
 
+/* mobile では透過、PC で flex column になる */
+.quiz-right { display: contents; }
+
 .choices {
   width: 100%;
   max-width: 480px;
@@ -303,6 +264,7 @@ h2 {
 .btn-pass:hover:not(:disabled) { color: var(--text); border-color: #ffffff35; }
 .btn-pass:disabled { opacity: 0.4; cursor: default; }
 
+/* ---------- リザルト画面 ---------- */
 .result-inner {
   display: flex;
   flex-direction: column;
@@ -314,37 +276,16 @@ h2 {
   width: 100%;
 }
 
-.result-score-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-#result-score {
-  font-size: 3.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-}
-.result-pt {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-}
+.result-score-wrap { display: flex; align-items: baseline; gap: 6px; }
+#result-score { font-size: 3.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.result-pt { font-size: 1.1rem; color: var(--text-muted); }
 
-.result-stats {
-  display: flex;
-  gap: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
+.result-stats { display: flex; gap: 20px; font-size: 0.9rem; font-weight: 700; }
 .stat.correct { color: var(--correct); }
 .stat.wrong   { color: var(--wrong); }
 .stat.pass    { color: var(--text-muted); }
 
-.result-msg {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  min-height: 1.5em;
-}
+.result-msg { font-size: 0.95rem; color: var(--text-muted); min-height: 1.5em; }
 
 .btn-primary {
   margin-top: 4px;
@@ -381,7 +322,6 @@ h2 {
   .choices { grid-template-columns: 1fr; }
   .choice-btn { font-size: 0.78rem; }
   h1 { font-size: 1.5rem; }
-  .category-list { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── タブレット (640px+) ── */
@@ -407,13 +347,13 @@ h2 {
   .cat-icon { font-size: 2.2rem; }
   .cat-label { font-size: 0.88rem; }
   .result-inner { max-width: 660px; padding: 60px 48px; }
+
   .quiz-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "label  label"
-      "image  choices"
-      "image  pass";
+      "label label"
+      "image right";
     column-gap: 48px;
     max-width: 960px;
     padding: 28px 56px 40px;
@@ -421,7 +361,8 @@ h2 {
   }
   .q-label    { grid-area: label; }
   .image-wrap { grid-area: image; position: sticky; top: 80px; max-width: none; height: 300px; }
-  .choices    { grid-area: choices; max-width: none; gap: 14px; }
-  #btn-pass   { grid-area: pass; max-width: none; }
+  .quiz-right { grid-area: right; display: flex; flex-direction: column; gap: 14px; }
+  .choices { max-width: none; gap: 14px; }
+  .btn-pass { max-width: none; }
   .choice-btn { padding: 18px 14px; font-size: 0.88rem; }
 }

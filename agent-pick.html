@@ -21,27 +21,33 @@
       <p class="label">VALORANT</p>
       <h1>エージェントランダム選択</h1>
 
-      <div class="section">
-        <p class="section-title">人数</p>
-        <div class="count-btns" id="count-btns">
-          <button class="count-btn active" data-n="1">1</button>
-          <button class="count-btn" data-n="2">2</button>
-          <button class="count-btn" data-n="3">3</button>
-          <button class="count-btn" data-n="4">4</button>
-          <button class="count-btn" data-n="5">5</button>
+      <div class="setup-cols">
+        <div class="setup-left">
+          <div class="section">
+            <p class="section-title">人数</p>
+            <div class="count-btns" id="count-btns">
+              <button class="count-btn active" data-n="1">1</button>
+              <button class="count-btn" data-n="2">2</button>
+              <button class="count-btn" data-n="3">3</button>
+              <button class="count-btn" data-n="4">4</button>
+              <button class="count-btn" data-n="5">5</button>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="section-title">プレイヤー名（省略可）</p>
+            <div id="name-inputs" class="name-inputs"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="section">
-        <p class="section-title">プレイヤー名（省略可）</p>
-        <div id="name-inputs" class="name-inputs"></div>
-      </div>
-
-      <div class="section">
-        <p class="section-title">対象エージェント</p>
-        <div id="role-filter" class="role-filter"></div>
-        <div id="agent-chips" class="agent-chips"></div>
-        <p id="filter-count" class="filter-count"></p>
+        <div class="setup-right">
+          <div class="section">
+            <p class="section-title">対象エージェント</p>
+            <div id="role-filter" class="role-filter"></div>
+            <div id="agent-chips" class="agent-chips"></div>
+            <p id="filter-count" class="filter-count"></p>
+          </div>
+        </div>
       </div>
 
       <button id="btn-pick" class="btn-primary">ランダムピック！</button>

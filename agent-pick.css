@@ -95,6 +95,11 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
   max-width: 480px;
 }
 
+/* mobile では透過、PC で 2カラムになる */
+.setup-cols { display: contents; }
+.setup-left { display: contents; }
+.setup-right { display: contents; }
+
 .section { display: flex; flex-direction: column; gap: 10px; }
 .section-title {
   font-size: 0.75rem;
@@ -304,11 +309,34 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 
 /* ── PC (1024px+) ── */
 @media (min-width: 1024px) {
-  .setup-scroll { max-width: 960px; padding: 48px 48px 72px; }
-  .agent-chips { grid-template-columns: repeat(9, 1fr); gap: 8px; }
-  .result-scroll { max-width: 960px; }
+  h1 { font-size: 2.4rem; }
+
+  .setup-scroll { max-width: 1040px; padding: 48px 56px 72px; }
+
+  .setup-cols {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .setup-left {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 300px;
+    flex-shrink: 0;
+  }
+  .setup-right {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .agent-chips { grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .result-scroll { max-width: 1040px; }
   .pick-cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
   .pick-cards.solo { grid-template-columns: 240px; }
-  h1 { font-size: 2.4rem; }
   .count-btn { font-size: 1.2rem; padding: 14px 0; }
 }
