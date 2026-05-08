@@ -292,3 +292,23 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 }
 .btn-back:hover { color: var(--text); border-color: #ffffff45; }
 
+
+/* ── タブレット (640px+) ── */
+@media (min-width: 640px) {
+  .setup-scroll { max-width: 600px; padding: 40px 32px 64px; }
+  .agent-chips { grid-template-columns: repeat(6, 1fr); }
+  .result-scroll { max-width: 600px; }
+  .pick-cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  h1 { font-size: 2.1rem; }
+}
+
+/* ── PC (1024px+) ── */
+@media (min-width: 1024px) {
+  .setup-scroll { max-width: 960px; padding: 48px 48px 72px; }
+  .agent-chips { grid-template-columns: repeat(9, 1fr); gap: 8px; }
+  .result-scroll { max-width: 960px; }
+  .pick-cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .pick-cards.solo { grid-template-columns: 240px; }
+  h1 { font-size: 2.4rem; }
+  .count-btn { font-size: 1.2rem; padding: 14px 0; }
+}

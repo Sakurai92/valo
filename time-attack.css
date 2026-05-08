@@ -383,3 +383,45 @@ h2 {
   h1 { font-size: 1.5rem; }
   .category-list { grid-template-columns: 1fr 1fr; }
 }
+
+/* ── タブレット (640px+) ── */
+@media (min-width: 640px) {
+  h1 { font-size: 2.1rem; }
+  .select-inner { max-width: 560px; padding: 40px 32px; }
+  .category-list { gap: 14px; }
+  .cat-btn { padding: 24px 20px; }
+  .result-inner { max-width: 540px; padding: 52px 40px; }
+  .quiz-body { max-width: 720px; padding: 20px 32px 32px; gap: 18px; }
+  .image-wrap { max-width: 400px; height: 220px; }
+  .choices { max-width: 560px; gap: 12px; }
+  .choice-btn { padding: 16px 12px; font-size: 0.84rem; }
+  .btn-pass { max-width: 560px; }
+}
+
+/* ── PC (1024px+) ── */
+@media (min-width: 1024px) {
+  h1 { font-size: 2.4rem; }
+  .select-inner { max-width: 760px; }
+  .category-list { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cat-btn { padding: 28px 24px; }
+  .cat-icon { font-size: 2.2rem; }
+  .cat-label { font-size: 0.88rem; }
+  .result-inner { max-width: 660px; padding: 60px 48px; }
+  .quiz-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "label  label"
+      "image  choices"
+      "image  pass";
+    column-gap: 48px;
+    max-width: 960px;
+    padding: 28px 56px 40px;
+    align-items: start;
+  }
+  .q-label    { grid-area: label; }
+  .image-wrap { grid-area: image; position: sticky; top: 80px; max-width: none; height: 300px; }
+  .choices    { grid-area: choices; max-width: none; gap: 14px; }
+  #btn-pass   { grid-area: pass; max-width: none; }
+  .choice-btn { padding: 18px 14px; font-size: 0.88rem; }
+}

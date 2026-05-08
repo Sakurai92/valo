@@ -181,11 +181,36 @@
       color: var(--muted);
       opacity: 0.5;
     }
+
+    .quiz-group { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ── タブレット ── */
+    @media (min-width: 640px) {
+      .cards { max-width: 600px; }
+      h1 { font-size: 1.8rem; }
+      .card { padding: 24px 22px; }
+      .folder-btn { padding: 24px 22px; }
+    }
+
+    /* ── PC ── */
+    @media (min-width: 1024px) {
+      body { padding: 56px 32px; }
+      h1 { font-size: 2.2rem; margin-bottom: 52px; }
+      .cards { max-width: 1040px; }
+      .card-title { font-size: 1.05rem; }
+      .card-desc  { font-size: 0.82rem; }
+      .quiz-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <span class="version">ver 0.3.0</span>
+  <span class="version">ver 0.3.1</span>
   <p class="logo">VALORANT</p>
   <h1>ゲーム集</h1>
 
@@ -217,6 +242,8 @@
 
     <!-- ── クイズ系 ── -->
     <p class="section-label" style="margin-top:4px">クイズ</p>
+
+    <div class="quiz-group">
 
     <!-- スキン -->
     <div class="folder">
@@ -421,6 +448,8 @@
         </div>
       </div>
     </div>
+
+    </div><!-- /quiz-group -->
 
     <!-- ── その他 ── -->
     <p class="section-label" style="margin-top:4px">その他</p>
