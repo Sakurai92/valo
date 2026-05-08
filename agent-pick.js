@@ -191,24 +191,36 @@ document.getElementById('btn-back').addEventListener('click', () => {
   showScreen('screen-setup');
 });
 
+async function buildPickCanvas() {
+  const el = document.getElementById('pick-cards');
+  return html2canvas(el, { backgroundColor: '#0f1923', useCORS: true, scale: 2 });
+}
+
 document.getElementById('btn-save').addEventListener('click', async () => {
   const btn = document.getElementById('btn-save');
-  btn.textContent = '保存中…';
+  btn.textContent = '処理中…';
   btn.disabled = true;
   try {
-    const el = document.getElementById('pick-cards');
-    const canvas = await html2canvas(el, {
-      backgroundColor: '#0f1923',
-      useCORS: true,
-      scale: 2,
-    });
-    const dataUrl = canvas.toDataURL('image/png');
+    const canvas = await buildPickCanvas();
     const link = document.createElement('a');
     link.download = 'valorant-pick.png';
-    link.href = dataUrl;
+    link.href = canvas.toDataURL('image/png');
     link.click();
   } finally {
-    btn.textContent = '画像を保存';
+    btn.textContent = 'ダウンロード';
+    btn.disabled = false;
+  }
+});
+
+document.getElementById('btn-save-tab').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-save-tab');
+  btn.textContent = '処理中…';
+  btn.disabled = true;
+  try {
+    const canvas = await buildPickCanvas();
+    window.open(canvas.toDataURL('image/png'), '_blank');
+  } finally {
+    btn.textContent = '新しいタブで開く';
     btn.disabled = false;
   }
 });
