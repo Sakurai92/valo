@@ -170,7 +170,7 @@ function renderResult(names, agents) {
   container.className = 'pick-cards' + (names.length === 1 ? ' solo' : '');
   container.innerHTML = names.map((name, i) => `
     <div class="pick-card" style="animation-delay:${i * 0.1}s">
-      <img class="agent-img" src="${agents[i].image}" alt="${agents[i].name}">
+      <img class="agent-img" src="${agents[i].image}" alt="${agents[i].name}" crossorigin="anonymous">
       <div class="agent-name">${agents[i].name}</div>
       <div class="agent-role">${agents[i].role}</div>
       <div class="player-label">${name}</div>
@@ -189,6 +189,28 @@ document.getElementById('btn-repick').addEventListener('click', () => {
 
 document.getElementById('btn-back').addEventListener('click', () => {
   showScreen('screen-setup');
+});
+
+document.getElementById('btn-save').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-save');
+  btn.textContent = '保存中…';
+  btn.disabled = true;
+  try {
+    const el = document.getElementById('pick-cards');
+    const canvas = await html2canvas(el, {
+      backgroundColor: '#0f1923',
+      useCORS: true,
+      scale: 2,
+    });
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = 'valorant-pick.png';
+    link.href = dataUrl;
+    link.click();
+  } finally {
+    btn.textContent = '画像を保存';
+    btn.disabled = false;
+  }
 });
 
 // ── 初期化 ──────────────────────────────

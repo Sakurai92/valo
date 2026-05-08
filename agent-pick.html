@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>VALORANT ランダムピック</title>
+  <title>VALORANT エージェントランダム選択</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="agent-pick.css">
@@ -19,7 +19,7 @@
     <div class="setup-scroll">
       <a href="index.html" class="btn-home">← ホーム</a>
       <p class="label">VALORANT</p>
-      <h1>ランダムピック</h1>
+      <h1>エージェントランダム選択</h1>
 
       <div class="section">
         <p class="section-title">人数</p>
@@ -56,11 +56,13 @@
       <div id="pick-cards" class="pick-cards"></div>
       <div class="result-actions">
         <button id="btn-repick" class="btn-primary">もう一度</button>
+        <button id="btn-save" class="btn-save">画像を保存</button>
         <button id="btn-back" class="btn-back">設定に戻る</button>
       </div>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="agent-pick.js"></script>
 </body>
 </html>

@@ -291,3 +291,19 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
   transition: color var(--transition), border-color var(--transition);
 }
 .btn-back:hover { color: var(--text); border-color: #ffffff45; }
+
+.btn-save {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  color: var(--text-muted);
+  border: 1.5px solid #ffffff20;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+.btn-save:hover    { color: var(--text); border-color: #ffffff45; }
+.btn-save:disabled { opacity: 0.4; cursor: default; }
