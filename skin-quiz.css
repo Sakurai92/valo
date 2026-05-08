@@ -40,11 +40,7 @@ html, body {
 .screen.active { display: flex; }
 
 /* ---------- ローディング ---------- */
-#screen-loading {
-  gap: 20px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
+#screen-loading { gap: 20px; color: var(--text-muted); font-size: 0.9rem; }
 
 .spinner {
   width: 40px;
@@ -68,36 +64,13 @@ html, body {
   max-width: 400px;
   width: 100%;
 }
-
-/* ホームボタンは左寄せ */
 .start-inner .btn-home,
-.result-inner .btn-home {
-  align-self: flex-start;
-}
+.result-inner .btn-home { align-self: flex-start; }
 
-.label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-}
-
-h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.desc {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
+.label { font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.15em; }
+h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+.desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; }
 
 .btn-primary {
   margin-top: 8px;
@@ -116,27 +89,25 @@ h2 {
 .btn-primary:hover  { background: var(--accent-dim); }
 .btn-primary:active { transform: scale(0.96); }
 
-/* リザルトスコア */
-.result-score {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-#result-num {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-}
-.result-denom {
-  font-size: 1rem;
+.result-score { display: flex; align-items: baseline; gap: 4px; }
+#result-num { font-size: 3.5rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.result-denom { font-size: 1rem; color: var(--text-muted); }
+.result-msg { font-size: 1rem; color: var(--text-muted); min-height: 1.5em; }
+
+/* ---------- ホームボタン ---------- */
+.btn-home {
   color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border: 1.5px solid #ffffff20;
+  border-radius: 6px;
+  transition: color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.result-msg {
-  font-size: 1rem;
-  color: var(--text-muted);
-  min-height: 1.5em;
-}
+.btn-home:hover { color: var(--text); border-color: #ffffff50; }
 
 /* ---------- クイズ画面 ---------- */
 #screen-quiz {
@@ -157,34 +128,8 @@ h2 {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
-.quiz-meta {
-  display: flex;
-  gap: 16px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-#q-score {
-  font-weight: 700;
-  color: var(--text);
-}
-
-/* ---------- ホームボタン ---------- */
-.btn-home {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 5px 10px;
-  border: 1.5px solid #ffffff20;
-  border-radius: 6px;
-  transition: color var(--transition), border-color var(--transition);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.btn-home:hover {
-  color: var(--text);
-  border-color: #ffffff50;
-}
+.quiz-meta { display: flex; gap: 16px; font-size: 0.85rem; color: var(--text-muted); }
+#q-score { font-weight: 700; color: var(--text); }
 
 .quiz-body {
   flex: 1;
@@ -192,17 +137,14 @@ h2 {
   flex-direction: column;
   align-items: center;
   padding: 20px 16px 32px;
-  gap: 20px;
+  gap: 16px;
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
 }
 
 /* 武器名バッジ */
-.weapon-label-wrap {
-  width: 100%;
-  text-align: center;
-}
+.weapon-label-wrap { width: 100%; text-align: center; }
 .weapon-label {
   display: inline-block;
   padding: 4px 16px;
@@ -220,7 +162,7 @@ h2 {
   max-width: 480px;
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 24px 16px;
+  padding: 20px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,7 +178,10 @@ h2 {
   -webkit-user-drag: none;
 }
 
-/* 選択肢 */
+/* mobile では透過、PC で flex column になる */
+.quiz-right { display: contents; }
+
+/* ---------- 選択肢 ---------- */
 .choices {
   width: 100%;
   max-width: 480px;
@@ -260,15 +205,15 @@ h2 {
   transition: background var(--transition), border-color var(--transition), transform var(--transition);
   word-break: break-all;
 }
-.choice-btn:hover:not(:disabled) {
-  background: var(--bg-hover);
-  border-color: #ffffff30;
-}
-.choice-btn:active:not(:disabled) {
-  transform: scale(0.97);
-}
+.choice-btn:hover:not(:disabled) { background: var(--bg-hover); border-color: #ffffff30; }
+.choice-btn:active:not(:disabled) { transform: scale(0.97); }
 
-/* 正誤フィードバック */
+.choice-btn.selected { background: rgba(255,70,85,0.12); border-color: var(--accent); color: var(--text); }
+.choice-btn.correct  { background: rgba(0,200,156,0.15); border-color: var(--correct); color: var(--correct); }
+.choice-btn.wrong    { background: rgba(255,70,85,0.12); border-color: var(--wrong); color: var(--wrong); opacity: 0.6; }
+.choice-btn:disabled { cursor: default; }
+
+/* ---------- フィードバック ---------- */
 .feedback {
   display: none;
   width: 100%;
@@ -280,41 +225,10 @@ h2 {
   font-weight: 700;
   line-height: 1.5;
 }
-.feedback.correct {
-  display: block;
-  background: rgba(0, 200, 156, 0.15);
-  border: 1.5px solid var(--correct);
-  color: var(--correct);
-}
-.feedback.wrong {
-  display: block;
-  background: rgba(255, 70, 85, 0.12);
-  border: 1.5px solid var(--wrong);
-  color: var(--wrong);
-}
+.feedback.correct { display: block; background: rgba(0,200,156,0.15); border: 1.5px solid var(--correct); color: var(--correct); }
+.feedback.wrong   { display: block; background: rgba(255,70,85,0.12); border: 1.5px solid var(--wrong);  color: var(--wrong); }
 
-/* 選択中（回答確定前） */
-.choice-btn.selected {
-  background: rgba(255, 70, 85, 0.12);
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-/* 回答後のフィードバック */
-.choice-btn.correct {
-  background: rgba(0, 200, 156, 0.15);
-  border-color: var(--correct);
-  color: var(--correct);
-}
-.choice-btn.wrong {
-  background: rgba(255, 70, 85, 0.12);
-  border-color: var(--wrong);
-  color: var(--wrong);
-  opacity: 0.6;
-}
-.choice-btn:disabled { cursor: default; }
-
-/* 回答するボタン */
+/* ---------- 回答・次へボタン ---------- */
 #btn-answer {
   width: 100%;
   max-width: 480px;
@@ -339,7 +253,6 @@ h2 {
 }
 #btn-answer.hidden { display: none; }
 
-/* 次へボタン（回答後に出現） */
 #btn-next {
   width: 100%;
   max-width: 480px;
@@ -356,7 +269,7 @@ h2 {
   transition: background var(--transition);
   letter-spacing: 0.04em;
 }
-#btn-next:hover  { background: var(--accent-dim); }
+#btn-next:hover   { background: var(--accent-dim); }
 #btn-next.visible { display: block; }
 
 /* ---------- レスポンシブ ---------- */
@@ -370,7 +283,7 @@ h2 {
 @media (min-width: 640px) {
   h1 { font-size: 2.1rem; }
   .start-inner, .result-inner { max-width: 540px; padding: 52px 40px; gap: 20px; }
-  .quiz-body { max-width: 720px; padding: 28px 32px 48px; gap: 24px; }
+  .quiz-body { max-width: 720px; padding: 28px 32px 48px; gap: 20px; }
   .skin-image-wrap { max-width: 600px; }
   #skin-image { max-height: 210px; }
   .choices { max-width: 600px; gap: 12px; }
@@ -383,12 +296,41 @@ h2 {
 @media (min-width: 1024px) {
   h1 { font-size: 2.4rem; }
   .start-inner, .result-inner { max-width: 660px; padding: 60px 48px; }
-  .quiz-body { max-width: 920px; padding: 36px 56px 56px; gap: 28px; }
-  .skin-image-wrap { max-width: none; min-height: 240px; }
-  #skin-image { max-height: 280px; }
+
+  .quiz-body {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-areas:
+      "image weapon"
+      "image right";
+    column-gap: 48px;
+    row-gap: 14px;
+    align-items: start;
+    max-width: 1000px;
+    padding: 48px 56px 64px;
+  }
+
+  .skin-image-wrap {
+    grid-area: image;
+    max-width: none;
+    min-height: 0;
+    position: sticky;
+    top: 80px;
+    padding: 24px 16px;
+  }
+  #skin-image { max-height: none; height: auto; width: 100%; }
+
+  .weapon-label-wrap { grid-area: weapon; max-width: none; align-self: end; }
+
+  .quiz-right {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
   .choices { max-width: none; gap: 14px; }
+  .feedback, #btn-answer, #btn-next { max-width: none; }
   .choice-btn { padding: 18px 16px; font-size: 0.92rem; }
-  #btn-answer, #btn-next { max-width: none; padding: 16px; font-size: 1rem; }
-  .feedback { max-width: none; font-size: 1.1rem; }
-  .weapon-label-wrap { max-width: none; }
+  #btn-answer, #btn-next { padding: 16px; font-size: 1rem; }
+  .feedback { font-size: 1.1rem; }
 }
