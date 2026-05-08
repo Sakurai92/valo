@@ -225,18 +225,21 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 }
 .result-top { display: flex; }
 
+/* mobile: 3上段 + 2下段（中央揃え） */
 .pick-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
-.pick-cards.solo { grid-template-columns: 180px; justify-content: center; }
 
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(16px) scale(0.95); }
   to   { opacity: 1; transform: none; }
 }
 .pick-card {
+  flex: 0 0 calc(33.333% - 8px);
+  min-width: 0;
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: 12px;
@@ -303,7 +306,9 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
   .setup-scroll { max-width: 600px; padding: 40px 32px 64px; }
   .agent-chips { grid-template-columns: repeat(6, 1fr); }
   .result-scroll { max-width: 600px; }
-  .pick-cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  /* 5人横一列になる最小幅 — タブレット幅で5カラム確保 */
+  .pick-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 12px; }
+  .pick-card { flex: none; }
   h1 { font-size: 2.1rem; }
 }
 
@@ -335,8 +340,8 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
   }
 
   .agent-chips { grid-template-columns: repeat(7, 1fr); gap: 8px; }
-  .result-scroll { max-width: 1040px; }
-  .pick-cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  .pick-cards.solo { grid-template-columns: 240px; }
+  .result-scroll { max-width: 960px; }
+  /* minmax(160px, 1fr) で 960px 幅に 5カラムがちょうど収まる */
+  .pick-cards { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
   .count-btn { font-size: 1.2rem; padding: 14px 0; }
 }
