@@ -278,32 +278,31 @@ h2 { font-size: 1.6rem; font-weight: 700; }
   .start-inner, .result-inner { max-width: 660px; padding: 40px 48px; }
 
   .quiz-body {
-    flex-direction: row;
-    align-items: flex-start;
-    max-width: 1000px;
-    padding: 24px 56px 28px;
-    gap: 48px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 860px;
+    padding: 20px 56px 24px;
+    gap: 16px;
   }
 
   .map-image-wrap {
-    width: 320px;
-    flex-shrink: 0;
+    width: 100%;
     max-width: none;
-    height: 340px;
-    position: sticky;
-    top: 72px;
+    height: 300px;
+    flex-shrink: 0;
+    position: static;
   }
 
   .quiz-right {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    flex: 1;
+    width: 100%;
     min-width: 0;
   }
-  .choices { max-width: none; gap: 14px; }
+  .choices { max-width: none; gap: 12px; }
   .feedback, #btn-answer, #btn-next { max-width: none; }
-  .choice-btn { padding: 18px 16px; font-size: 0.96rem; }
+  .choice-btn { padding: 16px 14px; font-size: 0.92rem; }
   #btn-answer, #btn-next { padding: 16px; font-size: 1rem; }
   .feedback { font-size: 1.1rem; }
 }

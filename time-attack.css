@@ -349,20 +349,17 @@ h2 { font-size: 1.6rem; font-weight: 700; }
   .result-inner { max-width: 660px; padding: 60px 48px; }
 
   .quiz-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "label label"
-      "image right";
-    column-gap: 48px;
-    max-width: 960px;
-    padding: 28px 56px 40px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 860px;
+    padding: 16px 56px 24px;
+    gap: 14px;
   }
-  .q-label    { grid-area: label; }
-  .image-wrap { grid-area: image; position: sticky; top: 80px; max-width: none; height: 300px; }
-  .quiz-right { grid-area: right; display: flex; flex-direction: column; gap: 14px; }
-  .choices { max-width: none; gap: 14px; }
+  .q-label    { width: 100%; }
+  .image-wrap { max-width: none; height: 240px; width: 100%; position: static; }
+  .quiz-right { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .choices { max-width: none; gap: 12px; }
   .btn-pass { max-width: none; }
-  .choice-btn { padding: 18px 14px; font-size: 0.88rem; }
+  .choice-btn { padding: 16px 14px; font-size: 0.88rem; }
 }
