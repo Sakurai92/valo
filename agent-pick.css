@@ -316,30 +316,30 @@ h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.04em; }
 @media (min-width: 1024px) {
   h1 { font-size: 2.4rem; }
 
-  .setup-scroll { max-width: 1040px; padding: 48px 56px 72px; }
+  .setup-scroll { max-width: 1040px; padding: 24px 56px 32px; gap: 16px; }
 
   .setup-cols {
     display: flex;
     flex-direction: row;
-    gap: 48px;
+    gap: 40px;
     align-items: flex-start;
   }
   .setup-left {
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    width: 300px;
+    gap: 16px;
+    width: 280px;
     flex-shrink: 0;
   }
   .setup-right {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 16px;
     flex: 1;
     min-width: 0;
   }
 
-  .agent-chips { grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .agent-chips { grid-template-columns: repeat(9, 1fr); gap: 6px; }
   .result-scroll { max-width: 960px; }
   /* minmax(160px, 1fr) で 960px 幅に 5カラムがちょうど収まる */
   .pick-cards { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
