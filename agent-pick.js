@@ -1,9 +1,10 @@
 const API_URL    = 'https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=ja-JP';
 const ROLE_ORDER = ['デュエリスト', 'イニシエーター', 'センチネル', 'コントローラー'];
 
-let allAgents   = [];
-let selectedSet = new Set();
-let playerCount = 1;
+let allAgents      = [];
+let selectedSet    = new Set();
+let playerCount    = 1;
+let currentRoleTab = 'all';
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -30,34 +31,23 @@ function renderRoleFilter() {
   const container = document.getElementById('role-filter');
   container.innerHTML = '';
 
-  // 全員ボタン
   const allBtn = document.createElement('button');
-  allBtn.className   = 'role-btn';
+  allBtn.className   = 'role-btn active';
   allBtn.id          = 'role-btn-all';
-  allBtn.textContent = '全員';
+  allBtn.textContent = 'すべて';
   allBtn.addEventListener('click', () => {
-    if (selectedSet.size === allAgents.length) {
-      selectedSet.clear();
-    } else {
-      allAgents.forEach(a => selectedSet.add(a.name));
-    }
+    currentRoleTab = 'all';
     updateFilter();
   });
   container.appendChild(allBtn);
 
   getUniqueRoles().forEach(role => {
     const btn = document.createElement('button');
-    btn.className   = 'role-btn';
+    btn.className    = 'role-btn';
     btn.dataset.role = role;
     btn.textContent  = role;
     btn.addEventListener('click', () => {
-      const inRole      = allAgents.filter(a => a.role === role).map(a => a.name);
-      const allSelected = inRole.every(n => selectedSet.has(n));
-      if (allSelected) {
-        inRole.forEach(n => selectedSet.delete(n));
-      } else {
-        inRole.forEach(n => selectedSet.add(n));
-      }
+      currentRoleTab = role;
       updateFilter();
     });
     container.appendChild(btn);
@@ -76,8 +66,9 @@ function renderAgentChips() {
 
   sorted.forEach(agent => {
     const chip = document.createElement('button');
-    chip.className   = 'agent-chip' + (selectedSet.has(agent.name) ? ' on' : '');
+    chip.className    = 'agent-chip' + (selectedSet.has(agent.name) ? ' on' : '');
     chip.dataset.name = agent.name;
+    chip.dataset.role = agent.role;
     chip.innerHTML    = `<img src="${agent.image}" alt="${agent.name}"><span class="chip-name">${agent.name}</span>`;
     chip.addEventListener('click', () => {
       if (selectedSet.has(agent.name)) {
@@ -92,23 +83,17 @@ function renderAgentChips() {
 }
 
 function updateFilter() {
-  // ロールボタンの状態更新
-  document.querySelectorAll('.role-btn[data-role]').forEach(btn => {
-    const inRole = allAgents.filter(a => a.role === btn.dataset.role);
-    const n      = inRole.filter(a => selectedSet.has(a.name)).length;
-    btn.classList.remove('active', 'partial');
-    if (n === inRole.length) btn.classList.add('active');
-    else if (n > 0)          btn.classList.add('partial');
+  // タブのアクティブ状態
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    const isAll = !btn.dataset.role;
+    btn.classList.toggle('active',
+      isAll ? currentRoleTab === 'all' : btn.dataset.role === currentRoleTab
+    );
   });
 
-  // 全員ボタン
-  const allBtn = document.getElementById('role-btn-all');
-  if (allBtn) {
-    allBtn.classList.toggle('active', selectedSet.size === allAgents.length);
-  }
-
-  // チップの on/off
+  // チップの表示/非表示 + on/off
   document.querySelectorAll('.agent-chip').forEach(chip => {
+    chip.hidden = currentRoleTab !== 'all' && chip.dataset.role !== currentRoleTab;
     chip.classList.toggle('on', selectedSet.has(chip.dataset.name));
   });
 
