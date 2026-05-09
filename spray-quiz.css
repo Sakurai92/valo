@@ -267,23 +267,23 @@ h2 { font-size: 1.6rem; font-weight: 700; }
 /* ── PC (1024px+) ── */
 @media (min-width: 1024px) {
   h1 { font-size: 2.4rem; }
-  .start-inner, .result-inner { max-width: 660px; padding: 60px 48px; }
+  .start-inner, .result-inner { max-width: 660px; padding: 40px 48px; }
 
   .quiz-body {
     flex-direction: row;
     align-items: flex-start;
     max-width: 1000px;
-    padding: 48px 56px 64px;
+    padding: 24px 56px 28px;
     gap: 48px;
   }
 
   .spray-image-wrap {
-    width: 280px;
-    height: 280px;
-    padding: 36px;
+    width: 240px;
+    height: 240px;
+    padding: 28px;
     flex-shrink: 0;
     position: sticky;
-    top: 80px;
+    top: 72px;
   }
 
   .quiz-right {

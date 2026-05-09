@@ -299,13 +299,13 @@ h2 { font-size: 1.6rem; font-weight: 700; }
 /* ── PC (1024px+) ── */
 @media (min-width: 1024px) {
   h1 { font-size: 2.4rem; }
-  .start-inner, .result-inner { max-width: 660px; padding: 60px 48px; }
+  .start-inner, .result-inner { max-width: 660px; padding: 40px 48px; }
 
   .quiz-body {
     flex-direction: row;
     align-items: flex-start;
     max-width: 1000px;
-    padding: 48px 56px 64px;
+    padding: 24px 56px 28px;
     gap: 48px;
   }
 
@@ -313,9 +313,9 @@ h2 { font-size: 1.6rem; font-weight: 700; }
     width: 240px;
     flex-shrink: 0;
     max-width: none;
-    padding: 24px 16px;
+    padding: 20px 14px;
     position: sticky;
-    top: 80px;
+    top: 72px;
   }
   #card-image {
     height: auto;
